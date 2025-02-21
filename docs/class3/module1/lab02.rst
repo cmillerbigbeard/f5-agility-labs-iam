@@ -231,7 +231,7 @@ Task 4 - Create Per-request policy
 
    |image30|
 
-17. Search for **HTTP Connector** resource, and add it to the Visual Policy Editor. 
+17. 17.	We will add another resource after the AD_Auth. Click on the **+** sign after the Successful branch. This will bring the up the Group/Resource box. Click **General Purpose** tab. Select **HTTP Connector**. 
 
    |image31|
 
@@ -336,23 +336,23 @@ Task 5 - Create a Virtual Server
 
 #. Set the following configurations for the virtual server.  
 
-**Name:** opa_access_vs 
+   **Name:** opa_access_vs 
 
-**Destination Address/Mask:** 10.1.10.101 
+   **Destination Address/Mask:** 10.1.10.101 
 
-**Service Port:** 443 
+   **Service Port:** 443 
 
-**HTTP Profile (Client):** http 
+   **HTTP Profile (Client):** http 
 
-**SSL Profile Client:** clientssl-insecure-compatible 
+   **SSL Profile Client:** clientssl-insecure-compatible 
 
-**Source Address Translation:** Auto Map 
+   **Source Address Translation:** Auto Map 
 
-**Access Profile:** opa_access_connector 
+   **Access Profile:** opa_access_connector 
 
-**Per-Request Policy:** opa_access_prp 
+   **Per-Request Policy:** opa_access_prp 
 
-Click **Finish**
+   Click **Finish**
 
 
    |image53|
@@ -372,17 +372,17 @@ Click on **Pools** --> **Pool List**
 
 6. Set the following configuration settings for the pool  
 
-**Name:** backend_pool 
+   **Name:** backend_pool 
 
-**Health Monitors:** http 
+   **Health Monitors:** http 
 
-**Node List:** click the drop down list, and select **10.1.20.5** 
+   **Node List:** click the drop down list, and select **10.1.20.5** 
 
-**Service Port:** 8888 
+   **Service Port:** 8888 
 
-Click **Add** 
+   Click **Add** 
 
-Click **Finished**
+   Click **Finished**
 
 
    |image59|
@@ -400,17 +400,17 @@ Task 6 - Test the policy
 
 #. Open Google Chrome. In the browser bookmark bar, there are shortcuts to App1 and App2.   
 
-In the OPA policy, the users below have access to the specific apps. 
+   In the OPA policy, the users below have access to the specific apps. 
 
-**Username:** user1
-**Password:** user@dMin_1234
+   **Username:** user1
+   **Password:** user@dMin_1234
 
-**Username:** user2
-**Password:** user@dMin_1234 
+   **Username:** user2
+   **Password:** user@dMin_1234 
 
-Test logging on as user1 to App1. Were you successful? Why? 
+   Test logging on as user1 to App1. Were you successful? Why? 
 
-Try logging as user2 to App1. Were you successful? Why? 
+   Try logging as user2 to App1. Were you successful? Why? 
 
 
 2. This concludes lab 2.

@@ -412,18 +412,22 @@ Task 9 - Testing our Policy
 
    |image51|
 
+
 11. In the **Token Details** screen, click on **Use Token** button 
 
-   **NOTE:** You can copy the encrypted Access token, go to jwt.io, and paste the token to have the code decoded. The payload of the JWT token should be encrypted.
+
+**NOTE:** You can copy the encrypted Access token, go to jwt.io, and paste the token to have the code decoded. The payload of the JWT token should be encrypted.
 
    |image52|
 
+
 12. Back in Postman Scratch pad, click on **Send**, to make the API call. Observe the request is now successful.  
+
 
    |image53|
 
 
-13. This concludes the lab.
+13. **This concludes the lab.**
 
 .. |image1| image:: media/lab01/image1.png
       :width: 600px

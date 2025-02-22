@@ -424,7 +424,7 @@ Task 6 - Test the policy
    Try logging as user2 to App1. Were you successful? Why? 
 
 
-2. This concludes lab 2.
+2. **This concludes lab 2.**
 
 
 

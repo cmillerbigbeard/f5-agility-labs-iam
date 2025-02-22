@@ -207,7 +207,7 @@ With the previous steps completed, you will now create a security policy using t
 
    |image24-2|
 
-   **Click Save & Next**  
+   Click **Save & Next**  
 
 
 5. On the next page **API Protection Configuration**, you can view the paths, methods, descriptions from the swagger file imported from the previous step.  
@@ -312,7 +312,7 @@ Task 8 - Edit the Access API Profile policy to add Client Application
 
 In the Security Guided Configuration, we enabled OAuth2.0, and set defined an OAuth Server. By configuring these settings, BIG-IP automatically creates an Access Policy under API Protection.  
 
-   In this lab, since BIG-IP will be acting as a OAuth Client we will go into the Access policy to define this setting.  
+In this lab, since BIG-IP will be acting as a OAuth Client we will go into the Access policy to define this setting.  
 
 #. Click on **Access** --> Click on **API Protection** --> Click on **Profile**
 

@@ -7,22 +7,22 @@ The HTTP Connector is made up of two parts. The first part is called the HTTP Co
 
 The following tasks will be walked through or configured by the lab attendee:  
 
-Task 1 - Configure a JWE token for access 
+Task 1 - Create a Per-Session Policy
 
-Task 2 - Create a Client Application to serve as an OAuth Client 
+Task 2 - Create HTTP Connector Transport
 
-Task 3 - Create a Resource Server  
+Task 3 - Create HTTP Connector Request
 
-Task 4 - Create a OAuth Profile 
+Task 4 - Create a Per-request policy
 
-Task 5 - Create an OAuth Server to grant authentication 
+Task 5 -  Create a Virtual Server
 
-Task 6 - Create an Advanced Web Application Firewall policy to protect APIs via OpenAPI file  
+Task 6 - Test the policy
 
 Expected time to complete: **40 minutes**
 
-Task 1 - Creating a Per-Session Policy
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Task 1 - Create a Per-Session Policy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    You will create a Per-Session Policy that allows all access. This allows us to establish a session for connectivity and then apply a more granular per-request policy to process the authentication and authorization to the individual applications.  
 
@@ -71,6 +71,8 @@ Task 1 - Creating a Per-Session Policy
 Task 2 - Create HTTP Connector Transport
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+You will create an HTTP Connector Transport profile to provide connection details such as DNS. 
+
 #. Click on **Access** --> Click on **Authentication** --> Click on **HTTP Connector** --> Click on **HTTP Connector Transport** 
 
     |image8|
@@ -92,6 +94,8 @@ Task 2 - Create HTTP Connector Transport
 
 Task 3 - Create HTTP Connector Request
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You will create an HTTP Connector Request profile to define the queries that will be sent to the HTTP server, and how to handle the response.
 
 #. Click on **Access** --> Click on **Authentication** --> Click on **HTTP Connector** --> Click on **HTTP Connector_Request**
 
@@ -116,7 +120,7 @@ Task 3 - Create HTTP Connector Request
    **Request Body:**  
 
 
-Insert the following into the Request Body.
+   Insert the following into the Request Body.
 
 ..   code:: JSON
 
@@ -131,17 +135,22 @@ Insert the following into the Request Body.
       } 
 
    }
-.. **Response Action:** Select **Parse** from the drop down list
 
-   **Response Action:** Select **Parse** from the drop down list
+.. 
+   just a comment
+   
 
-   Click **Save** 
+**Response Action:** Select **Parse** from the drop down list
+
+Click **Save** 
 
 
    |image13|
 
-Task 4 - Create Per-request policy
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Task 4 - Create a Per-request policy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Now we will create a pre-request policy where we will define the logon page, define the authentication server, and the HTTP Connector.
 
 #. Click on **Access** -->  Click on **Profiles / Policies** --> Click on **Per-Request Policies** 
 
@@ -325,6 +334,8 @@ Click **Save**
 
 Task 5 - Create a Virtual Server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In this task, we will create a virtual server, and attach the Access policies to the virtual server.
 
 #. Back in the BIG-IP GUI, click on **Local Traffic** --> **Virtual Servers** --> **Virtual Server List** 
 

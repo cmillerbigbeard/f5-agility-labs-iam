@@ -252,12 +252,15 @@ Now we will create a pre-request policy where we will define the logon page, def
 
    |image33|
 
+
 20. In the next window, click on the **Advanced** tab.  
+
 
 21. Remove the expression inside the box, and replace it with the following expression. Click **Finish** 
 
    expr { [mcget {subsession.http_connector.body.result}] == true }
 
+   
    |image34|
 
 22. After clicking Finish, you should be at the screen below. Click **Save**.
@@ -270,9 +273,9 @@ Now we will create a pre-request policy where we will define the logon page, def
 
 24. In the Message box properties, copy and paste the following  
 
-   **Title:** Access Allowed 
+**Title:** Access Allowed 
 
-   **Description (optional):** User %{subsession.last.logon.username} is allowed to access Application %{subsession.server.custom_landinguri} 
+**Description (optional):** User %{subsession.last.logon.username} is allowed to access Application %{subsession.server.custom_landinguri} 
 
 Click **Save** 
 
@@ -284,11 +287,11 @@ Click **Save**
 
 26. In the Message Box properties copy and paste the following 
 
-   **Title:** Access Denied 
+**Title:** Access Denied 
 
-   **Description (optional):** User %{subsession.last.logon.username} is not allowed to access Application %{subsession.server.custom_landinguri} 
+**Description (optional):** User %{subsession.last.logon.username} is not allowed to access Application %{subsession.server.custom_landinguri} 
 
-   Click **Save** 
+Click **Save** 
 
    |image39|
 
@@ -373,7 +376,7 @@ In this task, we will create a virtual server, and attach the Access policies to
 
 4. Create a pool to assign to the virtual server. We will omit creating a node, as one is already pre-defined because it's a shared backend server running multiple applications for this lab environment.  
 
-Click on **Pools** --> **Pool List**
+   Click on **Pools** --> **Pool List**
 
    |image57|
 

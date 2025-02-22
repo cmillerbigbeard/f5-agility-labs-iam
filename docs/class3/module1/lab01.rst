@@ -1,9 +1,9 @@
 Lab 1: Using encrypted JSON Web token (JWE) in an OpenID authentication workflow
 ================================================================================
 
-This lab we will demonstrate the layered use of Advanced Web Application Firewall and Access Policy Manager to protect the PetStore application by using JWE (encrypted JSON token) to authenticate requests.
+This lab will demonstrate the layered use of Advanced Web Application Firewall and Access Policy Manager to protect the PetStore application by using JWE (encrypted JSON token) to authenticate requests.
 
-Lab 1 we will be performing a few tasks that will create and use a JWE to access a protected resource behind an OAuth 2.0 authorization flow. The following tasks will be walked through or configured by the lab attendee:   
+Lab 1 we will be performing a few tasks that will create and use a JWE to access a protected resource behind an OAuth 2.0 authorization flow. The first five tasks will be walked throughs and the last four tasks will be configured by the lab attendee:   
 
 Tasks
 ------

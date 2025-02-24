@@ -236,15 +236,15 @@ The finished variable should look like the following screenshot. Click **Finishe
 
    |image65|
 
-16. In the Logon Page details we are prompting the user for their username, and password. Click Save.
+16. In the Logon Page details we are prompting the user for their username, and password. Click **Save**.
 
    |image65-2|
 
-17. Click on the + sign located after Logon Page to add another resource.
+17. Click on the **+** sign located after Logon Page to add another resource.
 
    |image66|
 
-17. Another method to find Group/Resources is to click through the tabs for the pertinent resource. The next item we need to add is Ad Auth. Click on **Authentication** tab, and select **AD Auth**. Click **Add Item**.  
+17. Another way to find Group/Resources is to click through the tabs for the pertinent resource. The next item we need to add is Ad Auth. Click on **Authentication** tab, and select **AD Auth**. Click **Add Item**.  
 
    |image29|
 
@@ -252,7 +252,11 @@ The finished variable should look like the following screenshot. Click **Finishe
 
    |image30|
 
-19. We will add another resource after the AD_Auth. Click on the **+** sign after the Successful branch. This will bring the up the Group/Resource box. Click **General Purpose** tab. Select **HTTP Connector**. 
+19. We will add another resource after the AD_Auth. Click on the **+** sign after the Successful branch. 
+
+   |image68|
+   
+20. This will bring the up the Group/Resource box. Click **General Purpose** tab. Select **HTTP Connector**. 
 
    |image31|
 
@@ -458,6 +462,7 @@ Task 6 - Test the policy
 .. |image6| image:: media/lab02/image6.png
 .. |image7| image:: media/lab02/image7.png
 .. |image8| image:: media/lab02/image8.png
+      :width: 500px
 .. |image9| image:: media/lab02/image9.png
 .. |image10| image:: media/lab02/image10.png
 .. |image11| image:: media/lab02/image11.png
@@ -519,3 +524,4 @@ Task 6 - Test the policy
 .. |image65| image:: media/lab02/image65.png
 .. |image65-2| image:: media/lab02/image65-2.png
 .. |image66| image:: media/lab02/image66.png
+.. |image68| image:: media/lab02/image68.png

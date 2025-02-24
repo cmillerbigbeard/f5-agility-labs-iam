@@ -435,19 +435,19 @@ Task 6 - Test the policy
 
 **NOTE:** You may get a certificate warning. This is expected, and you can click on Advanced and Proceed to the site.
 
-   In the OPA policy, the users below have access to the specific apps. 
+In the OPA policy, the users below have access to the specific apps. 
 
-   **Username:** user1
+**Username:** user1
 
-   **Password:** `user@dMin_1234`
+**Password:** `user@dMin_1234`
 
-   **Username:** user2
+**Username:** user2
 
-   **Password:** `user@dMin_1234` 
+**Password:** `user@dMin_1234` 
 
-   Test logging on as user1 to App1. Were you successful? Why? 
+Test logging on as user1 to App1. Were you successful? Why? 
 
-   Try logging as user2 to App1. Were you successful? Why? 
+Try logging as user2 to App1. Were you successful? Why? 
 
 
 2. **This concludes lab 2.**

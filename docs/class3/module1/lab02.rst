@@ -220,7 +220,7 @@ Now we will create a pre-request policy where we will define the logon page, def
    |image25|
 
 
-   The finished variable should look like the following screenshot. Click **Finished**. 
+The finished variable should look like the following screenshot. Click **Finished**. 
 
    |image26|
 
@@ -232,19 +232,31 @@ Now we will create a pre-request policy where we will define the logon page, def
 
    |image28|
 
-15. Another method to find Group/Resources is to click through the tabs for the pertinent resource. The next item we need to add is Ad Auth. Click on **Authentication** tab, and select **AD Auth**. Click **Add Item**.  
+15. Next we need to add an APM generated Logon Page for the per session policy. Click on **Logon Page**, and click **Add Item**.
+
+   |image65|
+
+16. In the Logon Page details we are prompting the user for their username, and password. Click Save.
+
+   |image65-2|
+
+17. Click on the + sign located after Logon Page to add another resource.
+
+   |image66|
+
+17. Another method to find Group/Resources is to click through the tabs for the pertinent resource. The next item we need to add is Ad Auth. Click on **Authentication** tab, and select **AD Auth**. Click **Add Item**.  
 
    |image29|
 
-16. In the AD Auth properties window, click on the drop down arrow next to **Server**, and select **/Common/oauth_as.app/oauth_as_ad-server**. Click **Save**. 
+18. In the AD Auth properties window, click on the drop down arrow next to **Server**, and select **/Common/oauth_as.app/oauth_as_ad-server**. Click **Save**. 
 
    |image30|
 
-17. 17.	We will add another resource after the AD_Auth. Click on the **+** sign after the Successful branch. This will bring the up the Group/Resource box. Click **General Purpose** tab. Select **HTTP Connector**. 
+19. We will add another resource after the AD_Auth. Click on the **+** sign after the Successful branch. This will bring the up the Group/Resource box. Click **General Purpose** tab. Select **HTTP Connector**. 
 
    |image31|
 
-18. In the HTTP Connector properties, click on the **HTTP Connector Request** and select **/Common/opa_request** 
+20. In the HTTP Connector properties, click on the **HTTP Connector Request** and select **/Common/opa_request** 
 
    |image32|
 
@@ -269,6 +281,9 @@ Now we will create a pre-request policy where we will define the logon page, def
 
 23. Next you will add two message boxes to the flow. One after the Access_Allowed flow, and another after the Fallback flow. Click the **+** sign next to Access_Allowed flow. For ease, type in message in the search box to bring up the Message Box. Select **Message Box**, and click **Add Item**
 
+   |image33-2|
+|
+|
    |image36|
 
 24. In the Message box properties, copy and paste the following  
@@ -283,6 +298,9 @@ Click **Save**
 
 25. Add another **Message box** for the fallback branch. 
 
+   |image38-2|
+|
+|
    |image38|
 
 26. In the Message Box properties copy and paste the following 
@@ -338,43 +356,9 @@ Click **Save**
 Task 5 - Create a Virtual Server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In this task, we will create a virtual server, and attach the Access policies to the virtual server.
+In this task, you will create a virtual server, and attach the Access policies to the virtual server. 
 
-#. Back in the BIG-IP GUI, click on **Local Traffic** --> **Virtual Servers** --> **Virtual Server List** 
-
-   |image51|
-
-#. Click **Create**
-
-   |image52|
-
-#. Set the following configurations for the virtual server.  
-
-   **Name:** opa_access_vs 
-
-   **Destination Address/Mask:** 10.1.10.101 
-
-   **Service Port:** 443 
-
-   **HTTP Profile (Client):** http 
-
-   **SSL Profile Client:** clientssl-insecure-compatible 
-
-   **Source Address Translation:** Auto Map 
-
-   **Access Profile:** opa_access_connector 
-
-   **Per-Request Policy:** opa_access_prp 
-
-   Click **Finish**
-
-
-   |image53|
-   |image54|
-   |image55|
-   |image56|
-
-4. Create a pool to assign to the virtual server. We will omit creating a node, as one is already pre-defined because it's a shared backend server running multiple applications for this lab environment.  
+4. In the BIG-IP GUI, let's start by creating a pool to assign to the virtual server. We have omit the step of creating a node, as one is already pre-defined. It's a shared backend server running multiple applications for this lab environment.  
 
    Click on **Pools** --> **Pool List**
 
@@ -394,33 +378,68 @@ In this task, we will create a virtual server, and attach the Access policies to
 
    **Service Port:** 8888 
 
-   Click **Add** 
+   Click **Add** Verify the member has been added before finishing the task, see screen shot below for reference.
 
    Click **Finished**
 
 
    |image59|
 
-7. Attach the pool to the virtual server. Click on **Virtual Server** --> **Virtual Server List** --> Click on **opa_access_vs** virtual server. 
 
-   |image60|
+#. Next you'll create the virtual server. Click on **Local Traffic** --> **Virtual Servers** --> **Virtual Server List** 
 
-8. Click on the **Resources** tab of the Virtual Server, click on the drop down arrow for **Default Pool**, and select **backend_pool**. Click **Update**. 
+   |image51|
 
-   |image61|
+#. Click **Create**
+
+   |image52|
+
+#. Set the following configurations for the virtual server.  
+
+   **Name:** opa_access_vs 
+
+   **Destination Address/Mask:** 10.1.10.121 
+
+   **Service Port:** 443 
+
+   **HTTP Profile (Client):** http 
+
+   **SSL Profile Client:** clientssl-insecure-compatible 
+
+   **Source Address Translation:** Auto Map 
+
+   **Access Profile:** opa_access_connector 
+
+   **Per-Request Policy:** opa_access_prp 
+
+   **Default Pool:** click the drop down arrow, and select backend_pool
+
+   Click **Finish**
+
+
+   |image53|
+   |image54|
+   |image55|
+   |image56|
+   |image64|
+
 
 Task 6 - Test the policy
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. Open Google Chrome. In the browser bookmark bar, there are shortcuts to App1 and App2.   
+#. Open Google Chrome. In the browser bookmark bar, there are shortcuts to App1 and App2. 
+
+**NOTE:** You may get a certificate warning. This is expected, and you can click on Advanced and Proceed to the site.
 
    In the OPA policy, the users below have access to the specific apps. 
 
    **Username:** user1
-   **Password:** user@dMin_1234
+
+   **Password:** `user@dMin_1234`
 
    **Username:** user2
-   **Password:** user@dMin_1234 
+
+   **Password:** `user@dMin_1234` 
 
    Test logging on as user1 to App1. Were you successful? Why? 
 
@@ -464,11 +483,13 @@ Task 6 - Test the policy
 .. |image31| image:: media/lab02/image31.png
 .. |image32| image:: media/lab02/image32.png
 .. |image33| image:: media/lab02/image33.png
+.. |image33-2| image:: media/lab02/image33-2.png
 .. |image34| image:: media/lab02/image34.png
 .. |image35| image:: media/lab02/image35.png
 .. |image36| image:: media/lab02/image36.png
 .. |image37| image:: media/lab02/image37.png
 .. |image38| image:: media/lab02/image38.png
+.. |image38-2| image:: media/lab02/image38-2.png
 .. |image39| image:: media/lab02/image39.png
 .. |image40| image:: media/lab02/image40.png
 .. |image41| image:: media/lab02/image41.png
@@ -494,4 +515,7 @@ Task 6 - Test the policy
 .. |image61| image:: media/lab02/image61.png
 .. |image62| image:: media/lab02/image62.png
 .. |image63| image:: media/lab02/image63.png
-
+.. |image64| image:: media/lab02/image64.png
+.. |image65| image:: media/lab02/image65.png
+.. |image65-2| image:: media/lab02/image65-2.png
+.. |image66| image:: media/lab02/image66.png

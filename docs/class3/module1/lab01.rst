@@ -1,9 +1,9 @@
 Lab 1: Using encrypted JSON Web token (JWE) in an OpenID authentication workflow
 ================================================================================
 
-This lab we will demonstrate the layered use of Advanced Web Application Firewall and Access Policy Manager to protect the PetStore application by using JWE (encrypted JSON token) to authenticate requests.
+This lab will demonstrate the layered use of Advanced Web Application Firewall and Access Policy Manager to protect the PetStore application by using JWE (encrypted JSON token) to authenticate requests.
 
-Lab 1 we will be performing a few tasks that will create and use a JWE to access a protected resource behind an OAuth 2.0 authorization flow. The following tasks will be walked through or configured by the lab attendee:   
+Lab 1 we will be performing a few tasks that will create and use a JWE to access a protected resource behind an OAuth 2.0 authorization flow. The first five tasks will be walked throughs and the last four tasks will be configured by the lab attendee:   
 
 Tasks
 ------
@@ -54,7 +54,7 @@ We start configurating the access token first, then we will integrate these sett
 Task 2 - Creating a Client Application (Observation only)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   In this lab we will review the Client Application settings. These settings define how a client authenticates the application, what URL(s) to display once successfully authorized, as well as apply additional conditions to client portion of the OAuth flow. 
+In this lab we will review the Client Application settings. These settings define how a client authenticates the application, what URL(s) to display once successfully authorized, as well as apply additional conditions to client portion of the OAuth flow. 
 
 #. Click on **Access** menu --> Click on **Federation** --> Click on **OAuth Authorization Server** --> Click on **Client Application** 
 
@@ -92,7 +92,7 @@ Task 2 - Creating a Client Application (Observation only)
 Task 3 - Creating a Resource Server (Observation only)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   In this lab we will review the Resource Server configuration. The resource server plays a vital role in the Oauth flow by hosting protected resources. The resource server ensures only authorized client application can access the resource
+In this lab we will review the Resource Server configuration. The resource server plays a vital role in the Oauth flow by hosting protected resources. The resource server ensures only authorized client application can access the resource
 
 #. Click on **Access** menu --> Click on **Federation** --> Click on **OAuth Authorization Server** --> Click on **Resource Server** 
 
@@ -115,7 +115,7 @@ Task 3 - Creating a Resource Server (Observation only)
 Task 4 - Configuring an Authorization Profile (Observation only)  
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   In this lab we will review the authorization profile settings which define the client application, resource server, and token key definition that were created previously into OAuth authorization flow. This Authorization Profile will later be attached to the virtual server. 
+In this lab we will review the authorization profile settings which define the client application, resource server, and token key definition that were created previously into OAuth authorization flow. This Authorization Profile will later be attached to the virtual server. 
 
 #. Go to **Access** --> Click on **Federation** --> Click on **OAuth Authorization Server** --> Click on **OAuth Profile** 
 
@@ -142,7 +142,7 @@ Task 4 - Configuring an Authorization Profile (Observation only)
 Task 5 - Configuring an OAuth Server Profile (Observation only)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   In this task we will review the OAuth Server Profile configuration. The OAuth Server profile builds the configuration to reference a OAuth provider for authentication and access rights. This is where you can define the identity service, for example pre-configured IdPs include F5, EntraID, Okta, Google and Facebook. You can set the token expiration, iRules, and associate the client and resource server.  For this lab, we have configured BIG-IP APM to act as both Client and Resource Server. F5 is also serving as the authentication provider via OIDC in this authorization flow.  
+In this task we will review the OAuth Server Profile configuration. The OAuth Server profile builds the configuration to reference a OAuth provider for authentication and access rights. This is where you can define the identity service, for example pre-configured IdPs include F5, EntraID, Okta, Google and Facebook. You can set the token expiration, iRules, and associate the client and resource server.  For this lab, we have configured BIG-IP APM to act as both Client and Resource Server. F5 is also serving as the authentication provider via OIDC in this authorization flow.  
 
 #. Click on **Access** --> Click on **Federation** --> Click on **OAuth Client/Resource Server ** --> Click on **OAuth Server**
 
@@ -168,7 +168,7 @@ Task 5 - Configuring an OAuth Server Profile (Observation only)
 Task 6 - Building a Security Policy using Guided Configuration (Hands-On lab)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   With the previous steps completed, you will now create a security policy using the Security Guided Configuration to help protect the PetStore application from known threats, and vulnerabilities.  Then later in the lab we will layer on Access policy to improve the security posture towards a zero-trust architecture.  
+With the previous steps completed, you will now create a security policy using the Security Guided Configuration to help protect the PetStore application from known threats, and vulnerabilities.  Then later in the lab we will layer on Access policy to improve the security posture towards a zero-trust architecture.  
 
 #. Click on **Security** --> Click on **Guided Configuration** --> Click on **API Security Protection**
 
@@ -207,7 +207,7 @@ Task 6 - Building a Security Policy using Guided Configuration (Hands-On lab)
 
    |image24-2|
 
-   **Click Save & Next**  
+   Click **Save & Next**  
 
 
 5. On the next page **API Protection Configuration**, you can view the paths, methods, descriptions from the swagger file imported from the previous step.  
@@ -310,9 +310,9 @@ Guided Configurations are predefined templates using iApp. The templates are set
 Task 8 - Edit the Access API Profile policy to add Client Application
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   In the Security Guided Configuration, we enabled OAuth2.0, and set defined an OAuth Server. By configuring these settings, BIG-IP automatically creates an Access Policy under API Protection.  
+In the Security Guided Configuration, we enabled OAuth2.0, and set defined an OAuth Server. By configuring these settings, BIG-IP automatically creates an Access Policy under API Protection.  
 
-   In this lab, since BIG-IP will be acting as a OAuth Client we will go into the Access policy to define this setting.  
+In this lab, since BIG-IP will be acting as a OAuth Client we will go into the Access policy to define this setting.  
 
 #. Click on **Access** --> Click on **API Protection** --> Click on **Profile**
 
@@ -412,18 +412,22 @@ Task 9 - Testing our Policy
 
    |image51|
 
+
 11. In the **Token Details** screen, click on **Use Token** button 
 
-   **NOTE:** You can copy the encrypted Access token, go to jwt.io, and paste the token to have the code decoded. The payload of the JWT token should be encrypted.
+
+**NOTE:** You can copy the encrypted Access token, go to jwt.io, and paste the token to have the code decoded. The payload of the JWT token should be encrypted.
 
    |image52|
 
+
 12. Back in Postman Scratch pad, click on **Send**, to make the API call. Observe the request is now successful.  
+
 
    |image53|
 
 
-13. This concludes the lab.
+13. **This concludes the lab.**
 
 .. |image1| image:: media/lab01/image1.png
       :width: 600px

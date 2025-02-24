@@ -7,35 +7,35 @@ The HTTP Connector is made up of two parts. The first part is called the HTTP Co
 
 The following tasks will be walked through or configured by the lab attendee:  
 
-Task 1 - Configure a JWE token for access 
+Task 1 - Create a Per-Session Policy
 
-Task 2 - Create a Client Application to serve as an OAuth Client 
+Task 2 - Create HTTP Connector Transport
 
-Task 3 - Create a Resource Server  
+Task 3 - Create HTTP Connector Request
 
-Task 4 - Create a OAuth Profile 
+Task 4 - Create a Per-request policy
 
-Task 5 - Create an OAuth Server to grant authentication 
+Task 5 -  Create a Virtual Server
 
-Task 6 - Create an Advanced Web Application Firewall policy to protect APIs via OpenAPI file  
+Task 6 - Test the policy
 
 Expected time to complete: **40 minutes**
 
-Task 1 - Creating a Per-Session Policy
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Task 1 - Create a Per-Session Policy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    You will create a Per-Session Policy that allows all access. This allows us to establish a session for connectivity and then apply a more granular per-request policy to process the authentication and authorization to the individual applications.  
 
 
-#. In the BIG-IP GUI --> Click on **Access** --> Click on **Profiles/Policies** --> Click **Access Profiles (Per-Session Policies)**
+1. In the BIG-IP GUI --> Click on **Access** --> Click on **Profiles/Policies** --> Click **Access Profiles (Per-Session Policies)**
 
    |image1|
 
-#. Click **Create**
+2. Click **Create**
 
    |image2|
 
-#. In the new Per-Session policy, add the following configurations:
+3. In the new Per-Session policy, add the following configurations:
 
    **Name:** opa_access_connector 
 
@@ -71,15 +71,17 @@ Task 1 - Creating a Per-Session Policy
 Task 2 - Create HTTP Connector Transport
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. Click on **Access** --> Click on **Authentication** --> Click on **HTTP Connector** --> Click on **HTTP Connector Transport** 
+You will create an HTTP Connector Transport profile to provide connection details such as DNS. 
+
+1. Click on **Access** --> Click on **Authentication** --> Click on **HTTP Connector** --> Click on **HTTP Connector Transport** 
 
     |image8|
 
-#. Click on **Create** button at the right-hand corner 
+2. Click on **Create** button at the right-hand corner 
 
     |image9|
 
-#. In the new HTTP Connector Transport Properties, set the following configurations:  
+3. In the new HTTP Connector Transport Properties, set the following configurations:  
 
    **Name:** connector_transport 
 
@@ -93,15 +95,17 @@ Task 2 - Create HTTP Connector Transport
 Task 3 - Create HTTP Connector Request
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. Click on **Access** --> Click on **Authentication** --> Click on **HTTP Connector** --> Click on **HTTP Connector_Request**
+You will create an HTTP Connector Request profile to define the queries that will be sent to the HTTP server, and how to handle the response.
+
+1. Click on **Access** --> Click on **Authentication** --> Click on **HTTP Connector** --> Click on **HTTP Connector_Request**
 
    |image11|
    
-#. Click on **Create**
+2. Click on **Create**
 
    |image12|
 
-#. Under **General Properties**, set the following configurations: 
+3. Under **General Properties**, set the following configurations: 
 
    **Name:** opa_call 
 
@@ -116,7 +120,7 @@ Task 3 - Create HTTP Connector Request
    **Request Body:**  
 
 
-Insert the following into the Request Body.
+   Insert the following into the Request Body.
 
 ..   code:: JSON
 
@@ -131,23 +135,28 @@ Insert the following into the Request Body.
       } 
 
    }
-.. **Response Action:** Select **Parse** from the drop down list
 
-   **Response Action:** Select **Parse** from the drop down list
+.. 
+   just a comment
+   
 
-   Click **Save** 
+**Response Action:** Select **Parse** from the drop down list
+
+Click **Save** 
 
 
    |image13|
 
-Task 4 - Create Per-request policy
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Task 4 - Create a Per-request policy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. Click on **Access** -->  Click on **Profiles / Policies** --> Click on **Per-Request Policies** 
+Now we will create a pre-request policy where we will define the logon page, define the authentication server, and the HTTP Connector.
+
+1. Click on **Access** -->  Click on **Profiles / Policies** --> Click on **Per-Request Policies** 
 
     |image14|
 
-#. Click **Create** 
+2. Click **Create** 
 
   |image15|
 
@@ -211,11 +220,11 @@ Task 4 - Create Per-request policy
    |image25|
 
 
-   The finished variable should look like the following screenshot. Click **Finished**. 
+The finished variable should look like the following screenshot. Click **Finished**. 
 
    |image26|
 
-   Click **Save** on the next window 
+Click **Save** on the next window 
 
    |image27|
 
@@ -223,122 +232,177 @@ Task 4 - Create Per-request policy
 
    |image28|
 
-15. Another method to find Group/Resources is to click through the tabs for the pertinent resource. The next item we need to add is Ad Auth. Click on **Authentication** tab, and select **AD Auth**. Click **Add Item**.  
+15. Next we need to add an APM generated Logon Page for the per session policy. Click on **Logon Page**, and click **Add Item**.
+
+   |image65|
+
+16. In the Logon Page details we are prompting the user for their username, and password. Click **Save**.
+
+   |image65-2|
+
+17. Click on the **+** sign located after Logon Page to add another resource.
+
+   |image66|
+
+18. Another way to find Group/Resources is to click through the tabs for the pertinent resource. The next item we need to add is Ad Auth. Click on **Authentication** tab, and select **AD Auth**. Click **Add Item**.  
 
    |image29|
 
-16. In the AD Auth properties window, click on the drop down arrow next to **Server**, and select **/Common/oauth_as.app/oauth_as_ad-server**. Click **Save**. 
+19. In the AD Auth properties window, click on the drop down arrow next to **Server**, and select **/Common/oauth_as.app/oauth_as_ad-server**. Click **Save**. 
 
    |image30|
 
-17. 17.	We will add another resource after the AD_Auth. Click on the **+** sign after the Successful branch. This will bring the up the Group/Resource box. Click **General Purpose** tab. Select **HTTP Connector**. 
+20. We will add another resource after the AD_Auth. Click on the **+** sign after the Successful branch. 
+
+   |image68|
+   
+21. This will bring the up the Group/Resource box. Click **General Purpose** tab. Select **HTTP Connector**. 
 
    |image31|
 
-18. In the HTTP Connector properties, click on the **HTTP Connector Request** and select **/Common/opa_request** 
+22. In the HTTP Connector properties, click on the **HTTP Connector Request** and select **/Common/opa_request** 
 
    |image32|
 
-19. Click on Branch Rules tab, in the **Name** field, change it to **Access_Allowed**, and then click on **change** link in the Expression box. 
+23. Click on Branch Rules tab, in the **Name** field, change it to **Access_Allowed**, and then click on **change** link in the Expression box. 
 
    |image33|
 
-20. In the next window, click on the **Advanced** tab.  
 
-21. Remove the expression inside the box, and replace it with the following expression. Click **Finish** 
+24. In the next window, click on the **Advanced** tab.  
+
+
+25. Remove the expression inside the box, and replace it with the following expression. Click **Finish** 
 
    expr { [mcget {subsession.http_connector.body.result}] == true }
 
+   
    |image34|
 
-22. After clicking Finish, you should be at the screen below. Click **Save**.
+26. After clicking Finish, you should be at the screen below. Click **Save**.
 
    |image35|
 
-23. Next you will add two message boxes to the flow. One after the Access_Allowed flow, and another after the Fallback flow. Click the **+** sign next to Access_Allowed flow. For ease, type in message in the search box to bring up the Message Box. Select **Message Box**, and click **Add Item**
+27. Next you will add two message boxes to the flow. One after the Access_Allowed flow, and another after the Fallback flow. Click the **+** sign next to Access_Allowed flow. For ease, type in message in the search box to bring up the Message Box. Select **Message Box**, and click **Add Item**
 
+   |image33-2|
+|
+|
    |image36|
 
-24. In the Message box properties, copy and paste the following  
+28. In the Message box properties, copy and paste the following  
 
-   **Title:** Access Allowed 
+**Title:** Access Allowed 
 
-   **Description (optional):** User %{subsession.last.logon.username} is allowed to access Application %{subsession.server.custom_landinguri} 
+**Description (optional):** User %{subsession.last.logon.username} is allowed to access Application %{subsession.server.custom_landinguri} 
 
 Click **Save** 
 
    |image37|
 
-25. Add another **Message box** for the fallback branch. 
+29. Add another **Message box** for the fallback branch. 
 
+   |image38-2|
+|
+|
    |image38|
 
-26. In the Message Box properties copy and paste the following 
+30. In the Message Box properties copy and paste the following 
 
-   **Title:** Access Denied 
+**Title:** Access Denied 
 
-   **Description (optional):** User %{subsession.last.logon.username} is not allowed to access Application %{subsession.server.custom_landinguri} 
+**Description (optional):** User %{subsession.last.logon.username} is not allowed to access Application %{subsession.server.custom_landinguri} 
 
-   Click **Save** 
+Click **Save** 
 
    |image39|
 
-27. The policy endings are currently set to Allow. We will need to adjust these appropriately. Click on **Edit Terminals**. 
+31. The policy endings are currently set to Allow. We will need to adjust these appropriately. Click on **Edit Terminals**. 
 
    |image40|
 
-28. In the Terminal properties, click on **Add Terminal**. Change the **Name** of the first terminal, Terminal 1 to **Reject**. Change the second terminal Name from Out to **Allow**. Click **Save**. 
+32. In the Terminal properties, click on **Add Terminal**. Change the **Name** of the first terminal, Terminal 1 to **Reject**. Change the second terminal Name from Out to **Allow**. Click **Save**. 
 
    |image41|
 
-29. Double click on the Allow ending after Message Box (1) and change it to **Reject**. Click **Save**. Do the same thing for the third Allow. 
+33. Double click on the Allow ending after Message Box (1) and change it to **Reject**. Click **Save**. Do the same thing for the third Allow. 
 
    |image42|
 
    |image43|
 
-30. The completed subroutine should look like the screenshot below 
+34. The completed subroutine should look like the screenshot below 
 
    |image44|
 
-31. We will now attach the subroutine to the main Per-Request policy. Click the **+** sign after the word fallback in the main policy. 
+35. We will now attach the subroutine to the main Per-Request policy. Click the **+** sign after the word fallback in the main policy. 
 
    |image45|
 
 
 
-32. In the **Group/Resource** box, go the last tab, **Subroutines**. Select the subroutine call **ad_connector**, and click on **Add Item**. 
+36. In the **Group/Resource** box, go the last tab, **Subroutines**. Select the subroutine call **ad_connector**, and click on **Add Item**. 
 
    |image47|
 
-33. Next we will need to add a Category Lookup for the URI. Click on the + sign between Start and ad_connector. Search for Category Lookup and add the item to the policy. 
+37. Next we will need to add a Category Lookup for the URI. Click on the + sign between Start and ad_connector. Search for Category Lookup and add the item to the policy. 
 
    |image48|
 
-34. In the Category Lookup property window, change the **Categorization Input** to User HTTP URI (cannot be used for SSL Bypass decisions). Click **Save**. 
+38. In the Category Lookup property window, change the **Categorization Input** to User HTTP URI (cannot be used for SSL Bypass decisions). Click **Save**. 
 
    |image49|
 
-35. Double check the terminal endings. Does Reject flow into the Reject ending? Does the Allow/Out flow in to Allow ending? If not adjust the terminal endings so they match the flow. See the screenshot below for reference. 
+39. Double check the terminal endings. Does Reject flow into the Reject ending? Does the Allow/Out flow in to Allow ending? If not adjust the terminal endings so they match the flow. See the screenshot below for reference. 
 
    |image50|
 
 Task 5 - Create a Virtual Server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. Back in the BIG-IP GUI, click on **Local Traffic** --> **Virtual Servers** --> **Virtual Server List** 
+In this task, you will create a virtual server, and attach the Access policies to the virtual server. 
+
+1. In the BIG-IP GUI, let's start by creating a pool to assign to the virtual server. We have omit the step of creating a node, as one is already pre-defined. It's a shared backend server running multiple applications for this lab environment.  
+
+   Click on **Pools** --> **Pool List**
+
+   |image57|
+
+2. Click **Create**
+
+   |image58|
+
+3. Set the following configuration settings for the pool  
+
+   **Name:** backend_pool 
+
+   **Health Monitors:** http 
+
+   **Node List:** click the drop down list, and select **10.1.20.5** 
+
+   **Service Port:** 8888 
+
+   Click **Add** Verify the member has been added before finishing the task, see screen shot below for reference.
+
+   Click **Finished**
+
+
+   |image59|
+
+
+4. Next you'll create the virtual server. Click on **Local Traffic** --> **Virtual Servers** --> **Virtual Server List** 
 
    |image51|
 
-#. Click **Create**
+5. Click **Create**
 
    |image52|
 
-#. Set the following configurations for the virtual server.  
+6. Set the following configurations for the virtual server.  
 
    **Name:** opa_access_vs 
 
-   **Destination Address/Mask:** 10.1.10.101 
+   **Destination Address/Mask:** 10.1.10.121 
 
    **Service Port:** 443 
 
@@ -352,6 +416,8 @@ Task 5 - Create a Virtual Server
 
    **Per-Request Policy:** opa_access_prp 
 
+   **Default Pool:** click the drop down arrow, and select backend_pool
+
    Click **Finish**
 
 
@@ -359,61 +425,32 @@ Task 5 - Create a Virtual Server
    |image54|
    |image55|
    |image56|
+   |image64|
 
-4. Create a pool to assign to the virtual server. We will omit creating a node, as one is already pre-defined because it's a shared backend server running multiple applications for this lab environment.  
-
-Click on **Pools** --> **Pool List**
-
-   |image57|
-
-5. Click **Create**
-
-   |image58|
-
-6. Set the following configuration settings for the pool  
-
-   **Name:** backend_pool 
-
-   **Health Monitors:** http 
-
-   **Node List:** click the drop down list, and select **10.1.20.5** 
-
-   **Service Port:** 8888 
-
-   Click **Add** 
-
-   Click **Finished**
-
-
-   |image59|
-
-7. Attach the pool to the virtual server. Click on **Virtual Server** --> **Virtual Server List** --> Click on **opa_access_vs** virtual server. 
-
-   |image60|
-
-8. Click on the **Resources** tab of the Virtual Server, click on the drop down arrow for **Default Pool**, and select **backend_pool**. Click **Update**. 
-
-   |image61|
 
 Task 6 - Test the policy
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. Open Google Chrome. In the browser bookmark bar, there are shortcuts to App1 and App2.   
+1. Open Google Chrome. In the browser bookmark bar, there are shortcuts to App1 and App2. 
 
-   In the OPA policy, the users below have access to the specific apps. 
+**NOTE:** You may get a certificate warning. This is expected, and you can click on Advanced and Proceed to the site.
 
-   **Username:** user1
-   **Password:** user@dMin_1234
+In the OPA policy, the users below have access to the specific apps. 
 
-   **Username:** user2
-   **Password:** user@dMin_1234 
+**Username:** user1
 
-   Test logging on as user1 to App1. Were you successful? Why? 
+**Password:** `user@dMin_1234`
 
-   Try logging as user2 to App1. Were you successful? Why? 
+**Username:** user2
+
+**Password:** `user@dMin_1234` 
+
+Test logging on as user1 to App1. Were you successful? Why? 
+
+Try logging as user2 to App1. Were you successful? Why? 
 
 
-2. This concludes lab 2.
+2. **This concludes lab 2.**
 
 
 
@@ -424,7 +461,9 @@ Task 6 - Test the policy
 .. |image5| image:: media/lab02/image5.png
 .. |image6| image:: media/lab02/image6.png
 .. |image7| image:: media/lab02/image7.png
+      :width: 400px
 .. |image8| image:: media/lab02/image8.png
+      :width: 500px
 .. |image9| image:: media/lab02/image9.png
 .. |image10| image:: media/lab02/image10.png
 .. |image11| image:: media/lab02/image11.png
@@ -450,11 +489,13 @@ Task 6 - Test the policy
 .. |image31| image:: media/lab02/image31.png
 .. |image32| image:: media/lab02/image32.png
 .. |image33| image:: media/lab02/image33.png
+.. |image33-2| image:: media/lab02/image33-2.png
 .. |image34| image:: media/lab02/image34.png
 .. |image35| image:: media/lab02/image35.png
 .. |image36| image:: media/lab02/image36.png
 .. |image37| image:: media/lab02/image37.png
 .. |image38| image:: media/lab02/image38.png
+.. |image38-2| image:: media/lab02/image38-2.png
 .. |image39| image:: media/lab02/image39.png
 .. |image40| image:: media/lab02/image40.png
 .. |image41| image:: media/lab02/image41.png
@@ -480,4 +521,8 @@ Task 6 - Test the policy
 .. |image61| image:: media/lab02/image61.png
 .. |image62| image:: media/lab02/image62.png
 .. |image63| image:: media/lab02/image63.png
-
+.. |image64| image:: media/lab02/image64.png
+.. |image65| image:: media/lab02/image65.png
+.. |image65-2| image:: media/lab02/image65-2.png
+.. |image66| image:: media/lab02/image66.png
+.. |image68| image:: media/lab02/image68.png

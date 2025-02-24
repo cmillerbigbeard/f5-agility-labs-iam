@@ -224,7 +224,7 @@ The finished variable should look like the following screenshot. Click **Finishe
 
    |image26|
 
-   Click **Save** on the next window 
+Click **Save** on the next window 
 
    |image27|
 
@@ -461,6 +461,7 @@ Task 6 - Test the policy
 .. |image5| image:: media/lab02/image5.png
 .. |image6| image:: media/lab02/image6.png
 .. |image7| image:: media/lab02/image7.png
+      :width: 400px
 .. |image8| image:: media/lab02/image8.png
       :width: 500px
 .. |image9| image:: media/lab02/image9.png

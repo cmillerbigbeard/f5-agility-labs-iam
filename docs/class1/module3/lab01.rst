@@ -26,6 +26,7 @@ The video below illustrates the APM & Azure AD integration. This is **not** the 
 Section 1.1 - Check the Lab Architecture
 --------------------------------------------
 You should have received an invitation to create an account in the F5 Access Tenant. If you haven't received this e-mail, please speak with your instructor. If you need assistance loading students into a course, please contact Chris Miller.
+
 In this lab, we will protect 3 apps:
 
 #. 2 internal apps
